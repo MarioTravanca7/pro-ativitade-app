@@ -6,7 +6,7 @@ import AtividadeLista from './components/AtividadeLista';
 function App() {
     const [index, setIndex] = useState(0);
     const [atividades, setAtividades] = useState([]);
-    const [atividade, setAtividade] = useState({ id: 0 });
+    const [atividade, setAtividade] = useState({ id: 0});
 
     useEffect(() => {
         atividades.length <= 0
