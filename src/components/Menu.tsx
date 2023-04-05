@@ -1,11 +1,16 @@
 import React from "react";
-import { NavLink } from "react-bootstrap";
-import Container from "react-bootstrap/Container";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
+// import { NavLink } from "react-bootstrap";
+// import Container from "react-bootstrap/Container";
+// import Nav from "react-bootstrap/Nav";
+// import Navbar from "react-bootstrap/Navbar";
+// import NavDropdown from "react-bootstrap/NavDropdown";
+// import { useLocation } from "react-router-dom";
 
-export default function Menu() {
+import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
+import { NavLink, useLocation } from "react-router-dom";
+
+const Menu = () => {
+  const getActiveRoute = useLocation().pathname ? "Active" : "";
   return (
     <Navbar bg="dark" expand="lg" variant="dark">
       <Container>
@@ -16,13 +21,16 @@ export default function Menu() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link
-              href="/cliente/lista">Clientes
+              className={getActiveRoute}
+              as={NavLink}
+              to="/cliente/lista"
+            >
+              Clientes
             </Nav.Link>
             <Nav.Link
-              className={(navData) => (navData.isActive ? "Active" : "")}
+              className={getActiveRoute}
               as={NavLink}
               to="/atividade/lista"
-              
             >
               Atividades
             </Nav.Link>
@@ -41,4 +49,8 @@ export default function Menu() {
       </Container>
     </Navbar>
   );
-}
+};
+
+export default Menu;
+
+//href="/cliente/lista">Clientes

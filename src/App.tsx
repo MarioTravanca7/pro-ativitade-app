@@ -4,8 +4,10 @@ import Cliente from "./pages/clientes/Cliente";
 import ClienteForm from "./pages/clientes/ClienteForm";
 import Dashboard from "./pages/dashboard/Dashboard";
 import PageNotFound from "./pages/PageNotFound";
+import React from "react";
+import './App.css';
 
-export default function App() {
+const App = () => {
   return (
     <Routes>
       <Route path="/" element={<Dashboard />} />
@@ -18,3 +20,5 @@ export default function App() {
     </Routes>
   );
 }
+
+export default App;

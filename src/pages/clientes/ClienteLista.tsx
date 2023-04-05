@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, FormControl, InputGroup } from "react-bootstrap";
 import TitlePage from "../../components/TitlePage";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const clientes = [
   {
@@ -41,11 +41,11 @@ const clientes = [
   },
 ];
 
-export default function ClienteLista() {
+const ClienteLista = () => {
   const navigate = useNavigate();
   const [termoBusca, setTermoBusca] = useState("");
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTermoBusca(e.target.value);
     // console.log(termoBusca);
   };
@@ -60,8 +60,8 @@ export default function ClienteLista() {
   });
 
   const novoCliente = () => {
-    navigate('/cliente/detalhe');
-  }
+    navigate("/cliente/detalhe");
+  };
 
   return (
     <>
@@ -99,11 +99,10 @@ export default function ClienteLista() {
               <td>{cliente.situacao}</td>
               <td>
                 <div>
-                  <button 
+                  <button
                     className="btn btn-sm btn-outline-primary me-2"
-                    onClick={() => navigate(
-                      `/cliente/detalhe/${cliente.id}`
-                    )}>
+                    onClick={() => navigate(`/cliente/detalhe/${cliente.id}`)}
+                  >
                     <i className="fas far-user-edit me-2"></i>Editar
                   </button>
                   <button className="btn btn-sm btn-outline-danger me-2">
@@ -117,4 +116,6 @@ export default function ClienteLista() {
       </table>
     </>
   );
-}
+};
+
+export default ClienteLista;

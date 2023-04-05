@@ -1,45 +1,53 @@
 import { useState, useEffect } from "react";
+import { AtividadeFormProps } from "../../model/atividadesProps";
+import React from "react";
+import { IAtividade, Prioridade } from "../../model/atividade";
 
-const atividadeInicial = {
+const atividadeInicial : IAtividade = {
   id: 0,
   titulo: "",
-  prioridade: 0,
+  prioridade: Prioridade.NaoDefinido,
   descricao: "",
 };
 
-export default function AtividadeForm(props) {
-  const [atividade, setAtividade] = useState(atividadeAtual());
+const AtividadeForm: React.FC<AtividadeFormProps> = ({
+  ativSelecionada,
+  atualizarAtividade,
+  addAtividade,
+  cancelarAtividade
+}: AtividadeFormProps) => {
+  const [atividade, setAtividade] = useState<IAtividade>(atividadeAtual());
 
   useEffect(() => {
-    if (props.ativSelecionada.id !== 0) setAtividade(props.ativSelecionada);
-  }, [props.ativSelecionada]);
+    if (ativSelecionada.id !== 0) setAtividade(ativSelecionada);
+  }, [ativSelecionada]);
 
-  const inputTextHandler = (e) => {
+  const handleValue = (e : any) => {
     const { name, value } = e.target;
 
     setAtividade({ ...atividade, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (props.ativSelecionada.id !== 0) props.atualizarAtividade(atividade);
-    else props.addAtividade(atividade);
+    if (ativSelecionada.id !== 0) atualizarAtividade(atividade);
+    else addAtividade(atividade);
 
     setAtividade(atividadeInicial);
   };
 
-  const handleCancelar = (e) => {
+  const handleCancelar = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
-    props.cancelarAtividade();
+    cancelarAtividade();
 
     setAtividade(atividadeInicial);
   };
 
-  function atividadeAtual() {
-    if (props.ativSelecionada.id !== 0) {
-      return props.ativSelecionada;
+  function atividadeAtual() : IAtividade {
+    if (ativSelecionada.id !== 0) {
+      return ativSelecionada;
     } else {
       return atividadeInicial;
     }
@@ -54,7 +62,7 @@ export default function AtividadeForm(props) {
           <input
             name="titulo"
             value={atividade.titulo}
-            onChange={inputTextHandler}
+            onChange={handleValue}
             id="titulo"
             type="text"
             className="form-control"
@@ -65,11 +73,11 @@ export default function AtividadeForm(props) {
           <select
             name="prioridade"
             value={atividade.prioridade}
-            onChange={inputTextHandler}
+            onChange={handleValue}
             id="prioridade"
             className="form-select"
           >
-            <option Value="NaoDefinido">Selecione...</option>
+            <option value="NaoDefinido">Selecione...</option>
             <option value="Baixa">Baixa</option>
             <option value="Normal">Normal</option>
             <option value="Alta">Alta</option>
@@ -80,9 +88,8 @@ export default function AtividadeForm(props) {
           <textarea
             name="descricao"
             value={atividade.descricao}
-            onChange={inputTextHandler}
+            onChange={handleValue}
             id="descricao"
-            type="text"
             className="form-control"
           />
           <hr />
@@ -112,4 +119,6 @@ export default function AtividadeForm(props) {
       </form>
     </>
   );
-}
+};
+
+export default AtividadeForm;

@@ -1,9 +1,10 @@
 import React from "react";
 import ClienteLista from './ClienteLista';
 
-export default function Cliente() {
+const Cliente = () => {
   return (
-
    < ClienteLista />
   );
 }
+
+export default Cliente;
